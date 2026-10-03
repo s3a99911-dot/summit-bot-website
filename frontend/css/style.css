@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بوت القمة | SUMMIT BOT</title>
+    <meta name="description" content="منصة بوت القمة المتكاملة لإدارة المخالفات، البنك، التقديمات، اللوقات ولوحة التحكم." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar glass">
+        <div class="brand">
+          <div class="brand-mark">S</div>
+          <div>
+            <div class="brand-name">بوت القمة</div>
+            <div class="brand-sub">SUMMIT BOT</div>
+          </div>
+        </div>
+        <nav class="main-nav">
+          <a href="#home">الرئيسية</a>
+          <a href="#features">المميزات</a>
+          <a href="#violations">المخالفات</a>
+          <a href="#bank">البنك</a>
+          <a href="#applications">التقديمات</a>
+          <a href="#logs">اللوقات</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-primary" id="discordLoginBtn">تسجيل الدخول عبر Discord</button>
+          <button class="btn btn-secondary" id="ownerPanelBtn">لوحة المالك</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="home">
+          <div class="hero-copy">
+            <span class="eyebrow">منصة إدارة متكاملة</span>
+            <h1 id="heroTitle">بوت القمة</h1>
+            <p id="heroDescription">
+              منصة متكاملة لإدارة المخالفات، البنك، التقديمات، اللوقات، والتذاكر مع دعم تسجيل الدخول عبر Discord.
+            </p>
+            <div class="hero-actions">
+              <a href="#features" class="btn btn-primary">اكتشف المميزات</a>
+              <a href="#applications" class="btn btn-secondary">ابدأ التقديم</a>
+            </div>
+            <div class="status-bar glass">
+              <div><span>حالة البوت</span><strong id="botStatus">Online</strong></div>
+              <div><span>أعضاء السيرفر</span><strong id="guildMembers">0</strong></div>
+              <div><span>التذاكر</span><strong id="ticketCount">0</strong></div>
+              <div><span>العمليات</span><strong id="operationCount">0</strong></div>
+            </div>
+          </div>
+          <div class="hero-card glass">
+            <div class="card-lite">
+              <span>إحصائيات سريعة</span>
+              <div class="metric-grid">
+                <div class="metric-box">
+                  <i>⚠️</i>
+                  <div>
+                    <strong id="violationMetric">0</strong>
+                    <small>مخالفة</small>
+                  </div>
+                </div>
+                <div class="metric-box">
+                  <i>💰</i>
+                  <div>
+                    <strong id="bankMetric">0</strong>
+                    <small>حساب بنكي</small>
+                  </div>
+                </div>
+                <div class="metric-box">
+                  <i>📝</i>
+                  <div>
+                    <strong id="applicationMetric">0</strong>
+                    <small>تقديم</small>
+                  </div>
+                </div>
+                <div class="metric-box">
+                  <i>📊</i>
+                  <div>
+                    <strong id="logsMetric">0</strong>
+                    <small>لوق</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="features">
+          <div class="section-head">
+            <span class="eyebrow">المميزات</span>
+            <h2>كل ما يحتاجه سيرفرك في منصة واحدة</h2>
+          </div>
+          <div id="featureList" class="feature-grid"></div>
+        </section>
+
+        <section class="section" id="violations">
+          <div class="section-head">
+            <span class="eyebrow">المخالفات</span>
+            <h2>مخالفاتك</h2>
+          </div>
+          <div class="table-panel glass">
+            <div class="table-actions">
+              <button class="chip active" data-filter="all">الكل</button>
+              <button class="chip" data-filter="paid">المسددة</button>
+              <button class="chip" data-filter="unpaid">غير المسددة</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>رقم</th>
+                  <th>النوع</th>
+                  <th>السبب</th>
+                  <th>القيمة</th>
+                  <th>المسؤول</th>
+                  <th>الحالة</th>
+                  <th>التاريخ</th>
+                </tr>
+              </thead>
+              <tbody id="violationsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" id="bank">
+          <div class="section-head">
+            <span class="eyebrow">البنك</span>
+            <h2>حسابك البنكي</h2>
+          </div>
+          <div class="bank-grid">
+            <div class="account-panel glass">
+              <div class="account-top">
+                <div class="avatar" id="userAvatar">U</div>
+                <div>
+                  <h3 id="accountName">اسم صاحب الحساب</h3>
+                  <small id="accountNumber">#0000</small>
+                </div>
+              </div>
+              <div class="balance-box">
+                <span>الرصيد الحالي</span>
+                <strong id="balanceValue">0</strong>
+              </div>
+              <div class="account-stats">
+                <div><span>الإيداعات</span><strong id="totalDeposit">0</strong></div>
+                <div><span>التحويلات</span><strong id="totalTransfers">0</strong></div>
+                <div><span>القروض</span><strong id="loanCount">0</strong></div>
+              </div>
+            </div>
+            <div class="bank-actions glass">
+              <h3>العمليات</h3>
+              <div class="action-list">
+                <button class="btn btn-primary">تحويل مال</button>
+                <button class="btn btn-secondary">تقديم قرض</button>
+                <button class="btn btn-secondary">تسديد قرض</button>
+                <button class="btn btn-secondary">إيداع</button>
+                <button class="btn btn-secondary">سحب</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="applications">
+          <div class="section-head">
+            <span class="eyebrow">التقديمات</span>
+            <h2>التقديمات المتاحة</h2>
+          </div>
+          <div id="applicationList" class="application-grid"></div>
+        </section>
+
+        <section class="section" id="logs">
+          <div class="section-head">
+            <span class="eyebrow">اللوقات</span>
+            <h2>مركز مراقبة السيرفر</h2>
+          </div>
+          <div class="table-panel glass">
+            <div class="table-tools">
+              <select id="logRange">
+                <option value="today">اليوم</option>
+                <option value="7d" selected>7 أيام</option>
+                <option value="14d">14 يوم</option>
+                <option value="30d">شهر</option>
+                <option value="all">الكل</option>
+              </select>
+              <input type="text" id="logSearch" placeholder="بحث باسم العضو أو Discord ID" />
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>الحدث</th>
+                  <th>المنفذ</th>
+                  <th>المتأثر</th>
+                  <th>الوصف</th>
+                  <th>الروم</th>
+                  <th>التاريخ</th>
+                </tr>
+              </thead>
+              <tbody id="logsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section owner-panel hidden" id="ownerPanelSection">
+          <div class="section-head">
+            <span class="eyebrow">لوحة المالك</span>
+            <h2>إدارة الموقع والصلاحيات</h2>
+          </div>
+          <div class="dashboard-grid">
+            <div class="glass stat-card"><span>الأعضاء</span><strong id="ownerMembers">0</strong></div>
+            <div class="glass stat-card"><span>المالكين</span><strong id="ownerCount">0</strong></div>
+            <div class="glass stat-card"><span>المخالفات</span><strong id="ownerViolations">0</strong></div>
+            <div class="glass stat-card"><span>الحسابات البنكية</span><strong id="ownerBankCount">0</strong></div>
+            <div class="glass stat-card"><span>التقديمات</span><strong id="ownerApplications">0</strong></div>
+            <div class="glass stat-card"><span>العمليات</span><strong id="ownerOperations">0</strong></div>
+          </div>
+          <div class="owner-forms">
+            <div class="glass panel-box">
+              <h3>إعدادات الألوان</h3>
+              <div class="color-grid">
+                <label><span>اللون الأساسي</span><input type="color" id="primaryColor" value="#3b82f6" /></label>
+                <label><span>خلفية الموقع</span><input type="color" id="backgroundColor" value="#0f172a" /></label>
+                <label><span>لون الأزرار</span><input type="color" id="buttonColor" value="#5865f2" /></label>
+                <label><span>لون البطاقات</span><input type="color" id="cardColor" value="#111827" /></label>
+              </div>
+              <button class="btn btn-primary" id="saveThemeBtn">حفظ الألوان</button>
+            </div>
+            <div class="glass panel-box">
+              <h3>إضافة مالك جديد</h3>
+              <input id="ownerDiscordId" type="text" placeholder="Discord ID" />
+              <input id="ownerUsername" type="text" placeholder="اسم المالك" />
+              <button class="btn btn-primary" id="saveOwnerBtn">حفظ</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>
